@@ -1,26 +1,25 @@
 package services;
 
-import models.Member;
-import models.Trainer;
-import models.TrainingSession;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import models.Member;
+import models.Trainer;
+import models.TrainingSession;
 
 /**
  * Member: Rahmatulloh
- * Task: Implement scheduling logic, booking sessions, and preventing time conflicts.
+ * Task: Implement scheduling logic, booking sessions, and preventing time
+ * conflicts.
  */
 public class ScheduleService {
-    private static final DateTimeFormatter SLOT_FORMAT =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter SLOT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    private List<Trainer> trainers = new ArrayList<>();
-    private List<TrainingSession> sessions = new ArrayList<>();
+    private final List<Trainer> trainers = new ArrayList<>();
+    private final List<TrainingSession> sessions = new ArrayList<>();
     private int sessionCounter = 1;
 
     public ScheduleService() {
@@ -28,20 +27,17 @@ public class ScheduleService {
                 "T001",
                 "Akmal",
                 "Strength Training",
-                Arrays.asList("2026-03-19 09:00", "2026-03-19 11:00", "2026-03-20 15:00")
-        ));
+                Arrays.asList("2026-03-19 09:00", "2026-03-19 11:00", "2026-03-20 15:00")));
         trainers.add(new Trainer(
                 "T002",
                 "Dilshod",
                 "Weight Loss",
-                Arrays.asList("2026-03-19 10:00", "2026-03-19 14:00", "2026-03-20 16:00")
-        ));
+                Arrays.asList("2026-03-19 10:00", "2026-03-19 14:00", "2026-03-20 16:00")));
         trainers.add(new Trainer(
                 "T003",
                 "Madina",
                 "Yoga and Mobility",
-                Arrays.asList("2026-03-19 08:00", "2026-03-20 09:00", "2026-03-20 17:00")
-        ));
+                Arrays.asList("2026-03-19 08:00", "2026-03-20 09:00", "2026-03-20 17:00")));
     }
 
     public List<Trainer> getAllTrainers() {
@@ -53,7 +49,7 @@ public class ScheduleService {
     }
 
     public String bookSession(Member member, String trainerId, String requestedSlot,
-                              int durationMinutes, boolean groupSession) {
+            int durationMinutes, boolean groupSession) {
         Trainer trainer = findTrainerById(trainerId);
         if (trainer == null) {
             return "Trainer not found.";
@@ -84,8 +80,7 @@ public class ScheduleService {
                 sessionType,
                 startTime,
                 durationMinutes,
-                groupSession
-        );
+                groupSession);
 
         sessions.add(session);
         return "Session booked successfully: " + session.getSessionId();

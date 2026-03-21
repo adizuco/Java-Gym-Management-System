@@ -26,5 +26,10 @@ bin/
 ### VS Code ###
 .vscode/
 
+### Compiled Java Files ###
+*.class
+*.jar
+*.war
+
 ### Mac OS ###
 .DS_Store

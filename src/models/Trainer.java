@@ -5,13 +5,14 @@ import java.util.List;
 
 /**
  * Member: Rahmatulloh
- * Task: Implement the Trainer entity with specialization, availability, and client list.
+ * Task: Implement the Trainer entity with specialization, availability, and
+ * client list.
  */
 public class Trainer {
-    private String id;
-    private String name;
-    private String specialty;
-    private List<String> availableSlots;
+    private final String id;
+    private final String name;
+    private final String specialty;
+    private final List<String> availableSlots;
 
     public Trainer(String id, String name, String specialty, List<String> availableSlots) {
         this.id = id;

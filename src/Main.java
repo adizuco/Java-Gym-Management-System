@@ -1,11 +1,11 @@
-import models.User;
+import java.util.Scanner;
 import models.Member;
 import models.Trainer;
 import models.TrainingSession;
+import models.User;
 import services.AuthService;
 import services.MemberService;
 import services.ScheduleService;
-import java.util.Scanner;
 
 /**
  * Member: Abdulaziz (Leader)
@@ -13,10 +13,10 @@ import java.util.Scanner;
  * logic.
  */
 public class Main {
-    private static AuthService authService = new AuthService();
-    private static MemberService memberService = new MemberService();
-    private static ScheduleService scheduleService = new ScheduleService();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final AuthService authService = new AuthService();
+    private static final MemberService memberService = new MemberService();
+    private static final ScheduleService scheduleService = new ScheduleService();
+    private static final Scanner scanner = new Scanner(System.in);
     private static User currentUser = null;
 
     public static void main(String[] args) {
@@ -53,27 +53,16 @@ public class Main {
 
             String choice = scanner.nextLine();
             switch (choice) {
-                case "1":
-                    displayMembers();
-                    break;
-                case "2":
-                    displayTrainers();
-                    break;
-                case "3":
-                    bookTrainingSession();
-                    break;
-                case "4":
-                    displaySessions();
-                    break;
-                case "5":
-                    System.out.println("Attendance tracked for today!");
-                    break;
-                case "6":
+                case "1" -> displayMembers();
+                case "2" -> displayTrainers();
+                case "3" -> bookTrainingSession();
+                case "4" -> displaySessions();
+                case "5" -> System.out.println("Attendance tracked for today!");
+                case "6" -> {
                     running = false;
                     System.out.println("Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid option.");
+                }
+                default -> System.out.println("Invalid option.");
             }
         }
     }

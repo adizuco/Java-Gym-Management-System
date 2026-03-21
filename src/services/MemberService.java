@@ -1,15 +1,16 @@
 package services;
 
-import models.Member;
 import java.util.ArrayList;
 import java.util.List;
+import models.Member;
 
 /**
  * Member: Boburjon
- * Task: Implement CRUD operations for members, including registration and profile updates.
+ * Task: Implement CRUD operations for members, including registration and
+ * profile updates.
  */
 public class MemberService {
-    private List<Member> members = new ArrayList<>();
+    private final List<Member> members = new ArrayList<>();
 
     public MemberService() {
         members.add(new Member("M001", "Abdulaziz"));

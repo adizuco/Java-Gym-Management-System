@@ -5,25 +5,25 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Member: Rahmatulloh
- * Task: Implement the TrainingSession entity for group classes or individual training slots.
+ * Task: Implement the TrainingSession entity for group classes or individual
+ * training slots.
  */
 public class TrainingSession {
-    private static final DateTimeFormatter DISPLAY_FORMAT =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    private String sessionId;
-    private String memberId;
-    private String memberName;
-    private String trainerId;
-    private String trainerName;
-    private String sessionType;
-    private LocalDateTime startTime;
-    private int durationMinutes;
-    private boolean groupSession;
+    private final String sessionId;
+    private final String memberId;
+    private final String memberName;
+    private final String trainerId;
+    private final String trainerName;
+    private final String sessionType;
+    private final LocalDateTime startTime;
+    private final int durationMinutes;
+    private final boolean groupSession;
 
     public TrainingSession(String sessionId, String memberId, String memberName, String trainerId,
-                           String trainerName, String sessionType, LocalDateTime startTime,
-                           int durationMinutes, boolean groupSession) {
+            String trainerName, String sessionType, LocalDateTime startTime,
+            int durationMinutes, boolean groupSession) {
         this.sessionId = sessionId;
         this.memberId = memberId;
         this.memberName = memberName;
