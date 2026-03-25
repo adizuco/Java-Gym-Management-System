@@ -1,0 +1,5 @@
+M001|Abdulaziz|75.0|180.0|Bulk|VIP|2026-01-01
+M002|Boburjon|70.0|175.0|Maintain|PREMIUM|2026-02-01
+M003|Rahmatulloh|80.0|185.0|Strength|BASIC|2026-03-01
+M004|Asomiddin|65.0|170.0|Weight Loss|BASIC|2026-03-10
+M005|Test User|70.0|170.0|Tester|BASIC|2026-03-25

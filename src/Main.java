@@ -1,11 +1,13 @@
 import java.util.Scanner;
 import models.Member;
+import models.Membership;
 import models.Trainer;
 import models.TrainingSession;
 import models.User;
 import services.AuthService;
 import services.MemberService;
 import services.ScheduleService;
+import java.time.LocalDate;
 
 /**
  * Member: Abdulaziz (Leader)
@@ -44,21 +46,25 @@ public class Main {
         while (running) {
             System.out.println("\n--- Main Menu ---");
             System.out.println("1. View All Members");
-            System.out.println("2. View Trainers");
-            System.out.println("3. Book Training Session");
-            System.out.println("4. View Booked Sessions");
-            System.out.println("5. Track Attendance (Mock)");
-            System.out.println("6. Logout & Exit");
+            System.out.println("2. Add New Member");
+            System.out.println("3. Remove Member");
+            System.out.println("4. View Trainers");
+            System.out.println("5. Book Training Session");
+            System.out.println("6. View Booked Sessions");
+            System.out.println("7. Track Attendance (Mock)");
+            System.out.println("8. Logout & Exit");
             System.out.print("Choose an option: ");
 
             String choice = scanner.nextLine();
             switch (choice) {
                 case "1" -> displayMembers();
-                case "2" -> displayTrainers();
-                case "3" -> bookTrainingSession();
-                case "4" -> displaySessions();
-                case "5" -> System.out.println("Attendance tracked for today!");
-                case "6" -> {
+                case "2" -> addMember();
+                case "3" -> removeMember();
+                case "4" -> displayTrainers();
+                case "5" -> bookTrainingSession();
+                case "6" -> displaySessions();
+                case "7" -> System.out.println("Attendance tracked for today!");
+                case "8" -> {
                     running = false;
                     System.out.println("Goodbye!");
                 }
@@ -70,7 +76,47 @@ public class Main {
     private static void displayMembers() {
         System.out.println("\n--- Member List ---");
         for (Member member : memberService.getAllMembers()) {
-            System.out.println(member.getId() + " - " + member.getName());
+            System.out.println(member);
+        }
+    }
+
+    private static void addMember() {
+        System.out.println("\n--- Add New Member ---");
+        System.out.print("Enter ID (e.g., M005): ");
+        String id = scanner.nextLine().trim();
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine().trim();
+        System.out.print("Enter Weight (kg): ");
+        double weight = Double.parseDouble(scanner.nextLine().trim());
+        System.out.print("Enter Height (cm): ");
+        double height = Double.parseDouble(scanner.nextLine().trim());
+        System.out.print("Enter Goal: ");
+        String goal = scanner.nextLine().trim();
+
+        System.out.println("Select Membership Plan:");
+        System.out.println("1. Basic");
+        System.out.println("2. Premium");
+        System.out.println("3. VIP");
+        int planChoice = Integer.parseInt(scanner.nextLine().trim());
+        Membership.PlanType planType = switch (planChoice) {
+            case 2 -> Membership.PlanType.PREMIUM;
+            case 3 -> Membership.PlanType.VIP;
+            default -> Membership.PlanType.BASIC;
+        };
+
+        Membership membership = new Membership(planType, LocalDate.now().toString());
+        Member newMember = new Member(id, name, weight, height, goal, membership);
+        memberService.addMember(newMember);
+        System.out.println("Member added successfully!");
+    }
+
+    private static void removeMember() {
+        System.out.print("\nEnter Member ID to remove: ");
+        String id = scanner.nextLine().trim();
+        if (memberService.deleteMember(id)) {
+            System.out.println("Member removed successfully.");
+        } else {
+            System.out.println("Member not found.");
         }
     }
 
@@ -99,7 +145,7 @@ public class Main {
         System.out.print("Enter member ID: ");
         String memberId = scanner.nextLine().trim();
 
-        Member member = findMemberById(memberId);
+        Member member = memberService.findMemberById(memberId);
         if (member == null) {
             System.out.println("Member not found.");
             return;
@@ -126,14 +172,5 @@ public class Main {
 
         String result = scheduleService.bookSession(member, trainerId, slot, durationMinutes, groupSession);
         System.out.println(result);
-    }
-
-    private static Member findMemberById(String memberId) {
-        for (Member member : memberService.getAllMembers()) {
-            if (member.getId().equalsIgnoreCase(memberId)) {
-                return member;
-            }
-        }
-        return null;
     }
 }
